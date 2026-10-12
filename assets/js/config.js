@@ -25,11 +25,11 @@ window.NEKIO_CONFIG = {
     // 'none'     → forms refuse to send and say so (default, safe)
     // 'supabase' → insert-only REST call to your Supabase project (recommended)
     // 'endpoint' → POST JSON to a hosted form service (Formspree, Web3Forms, …)
-    provider: 'none',
+    provider: 'supabase',
 
     supabase: {
-      url: '',            // e.g. https://abcdefgh.supabase.co
-      anonKey: '',        // the public anon / publishable key
+      url: 'https://xvqetnxetcvadxytquql.supabase.co',
+      anonKey: 'sb_publishable_X4nlvEKvfqQG2dIucgxKZQ_3FH1beg4',   // public publishable key (insert-only via RLS)
       candidatesTable: 'research_candidates',
       employersTable: 'research_employers'
     },
