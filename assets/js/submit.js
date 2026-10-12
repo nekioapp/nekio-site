@@ -46,13 +46,14 @@
     var headers = {
       'Content-Type': 'application/json',
       'apikey': sb.anonKey,
-      // Resend of the same submission_id is ignored instead of creating a duplicate row.
-      'Prefer': 'return=minimal,resolution=ignore-duplicates'
+      // Plain INSERT: the anon role only has INSERT rights (no SELECT), so no ON CONFLICT / RETURNING here.
+      // A retry of the same submission_id hits the UNIQUE constraint and comes back as HTTP 409 (treated as success below).
+      'Prefer': 'return=minimal'
     };
     // Legacy anon keys are JWTs and go in Authorization too; new publishable keys use the apikey header only.
     if (/^eyJ/.test(sb.anonKey)) headers['Authorization'] = 'Bearer ' + sb.anonKey;
 
-    var url = sb.url.replace(/\/+$/, '') + '/rest/v1/' + encodeURIComponent(table) + '?on_conflict=submission_id';
+    var url = sb.url.replace(/\/+$/, '') + '/rest/v1/' + encodeURIComponent(table);
     return withTimeout(url, { method: 'POST', headers: headers, body: JSON.stringify(row), credentials: 'omit', referrerPolicy: 'strict-origin-when-cross-origin' })
       .then(function (res) {
         if (res.ok || res.status === 409) return { ok: true };   // 409 = already stored (duplicate retry)
