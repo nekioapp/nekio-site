@@ -312,7 +312,7 @@
     openForm(trigger.getAttribute('data-open-form'), trigger);
   });
 
-  // Deep links: nekio.hu/#candidate-form  /  nekio.hu/#employer-form
+  // Deep links: nekio.app/#candidate-form  /  nekio.app/#employer-form
   function openFromHash() {
     Object.keys(FORMS).forEach(function (type) {
       if (location.hash === FORMS[type].hash && FORMS[type].dialog && !FORMS[type].dialog.open) openForm(type, null);

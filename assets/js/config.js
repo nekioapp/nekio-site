@@ -11,11 +11,11 @@
  */
 window.NEKIO_CONFIG = {
   // Primary public URL (used for sharing; also update the <meta> URLs in index.html if it changes).
-  siteUrl: 'https://nekio.hu',
+  siteUrl: 'https://nekio.app',
 
   // Public contact / privacy e-mail. Leave empty until confirmed: the footer "Contact"
   // link then points to the research section instead of a mailto: link.
-  contactEmail: '',
+  contactEmail: 'matchme@nekio.app',
 
   // Bump when the privacy notice or consent wording changes materially.
   // It is stored with each submission so you know which wording the person agreed to.
@@ -46,7 +46,7 @@ window.NEKIO_CONFIG = {
   // included in events. Check with your legal advisor before enabling.
   analytics: {
     provider: 'none',     // 'none' | 'plausible'
-    plausibleDomain: '',  // e.g. nekio.hu
+    plausibleDomain: '',  // e.g. nekio.app
     plausibleScript: 'https://plausible.io/js/script.js',
     debug: false          // true → log events to the browser console instead of / besides sending
   }
