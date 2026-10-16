@@ -19,7 +19,7 @@ window.NEKIO_CONFIG = {
 
   // Bump when the privacy notice or consent wording changes materially.
   // It is stored with each submission so you know which wording the person agreed to.
-  consentVersion: '2026-10-draft-1',
+  consentVersion: '2026-10-16',
 
   submission: {
     // 'none'     → forms refuse to send and say so (default, safe)
