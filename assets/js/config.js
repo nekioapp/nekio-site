@@ -19,7 +19,7 @@ window.NEKIO_CONFIG = {
 
   // Bump when the privacy notice or consent wording changes materially.
   // It is stored with each submission so you know which wording the person agreed to.
-  consentVersion: '2026-10-16',
+  consentVersion: '2026-10-26',
 
   submission: {
     // 'none'     → forms refuse to send and say so (default, safe)
@@ -45,7 +45,7 @@ window.NEKIO_CONFIG = {
   // 'plausible' loads a cookieless script (see README → Analytics). No personal data is ever
   // included in events. Check with your legal advisor before enabling.
   analytics: {
-    provider: 'none',     // 'none' | 'plausible'
+    provider: 'goatcounter',     // 'none' | 'plausible' | 'goatcounter' (goatcounter: the script tag is in index.html / privacy.html)
     plausibleDomain: '',  // e.g. nekio.app
     plausibleScript: 'https://plausible.io/js/script.js',
     debug: false          // true → log events to the browser console instead of / besides sending

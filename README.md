@@ -46,11 +46,11 @@ Hasznos linkek: `/?lang=hu` (magyar nyelvű megnyitás), `/#candidate-form` és 
    git push -u origin main
    ```
 3. GitHub → **Settings → Pages → Build and deployment**: Source = *Deploy from a branch*, Branch = `main`, mappa = `/ (root)`. Pár perc múlva él az `https://<felhasznalo>.github.io/<repo>/` címen.
-4. **Saját domain (nekio.hu):** Settings → Pages → *Custom domain* → `nekio.hu` → Save, majd jelöld be az **Enforce HTTPS** opciót. A DNS-nél (a GitHub aktuális dokumentációja szerint ellenőrizd az IP-ket):
-   - apex (`nekio.hu`): négy `A` rekord → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+4. **Saját domain (nekio.app):** Settings → Pages → *Custom domain* → `nekio.app` → Save, majd jelöld be az **Enforce HTTPS** opciót. A DNS-nél (a GitHub aktuális dokumentációja szerint ellenőrizd az IP-ket):
+   - apex (`nekio.app`): négy `A` rekord → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
    - `www`: `CNAME` → `<felhasznalo>.github.io`
-5. A GitHub Pages egy egyedi domaint kezel; a **nekio.app**-ot a regisztrátornál állítsd átirányításra a nekio.hu-ra.
-6. Ha a végleges cím nem `https://nekio.hu/`, cseréld ki az `index.html` és `privacy.html` fejlécében a `canonical`, `og:url`, `og:image`, `twitter:image` és a JSON-LD címeit (keresd: `nekio.hu`), valamint a `siteUrl`-t a `config.js`-ben. A közösségi előnézeti képnek **abszolút** címen kell lennie.
+5. A végleges cím a **nekio.app**; a `nekio.hu` címek az oldalon már lecserélve.
+6. Ha a végleges cím nem `https://nekio.app/`, cseréld ki az `index.html` és `privacy.html` fejlécében a `canonical`, `og:url`, `og:image`, `twitter:image` és a JSON-LD címeit (keresd: `nekio.app`), valamint a `siteUrl`-t a `config.js`-ben. A közösségi előnézeti képnek **abszolút** címen kell lennie.
 
 > Fontos: GitHub Pages-en a futásidejű titkos kulcsok nem védhetők. Ezért a rendszer úgy készült, hogy a böngészőbe csak **publikus** kulcs kerül, ami kizárólag beszúrásra jogosít (lásd lent). Soha ne tegyél a repóba `service_role` vagy más privát kulcsot.
 
@@ -80,10 +80,11 @@ Spamvédelem: rejtett csapdamező (honeypot) és minimális kitöltési idő van
 
 ## 4. Adatvédelem (GDPR) — indulás előtt
 
-- A `privacy.html` **tervezet**, jogi felülvizsgálat nélkül. Töltsd ki az összes sárgával kiemelt `[helyőrzőt]` (adatkezelő neve, székhely, cégjegyzékszám, kapcsolattartó e-mail, tárhely- és adatfeldolgozó szolgáltatók, megőrzési idő, EU-n kívüli továbbítás), majd **jogásszal nézesd át**, és csak ezután töröld a sárga „Draft” sávot.
+- A `privacy.html` a 2026. október 16-i adatkezelési tájékoztató (DTA Consulting Kft.) szövege, HU és EN nyelven. Az angol változat fordítás: a magyar a mérvadó.
+- (Korábbi megjegyzés, már nem érvényes:) a `privacy.html` **tervezet** volt, jogi felülvizsgálat nélkül. Töltsd ki az összes sárgával kiemelt `[helyőrzőt]` (adatkezelő neve, székhely, cégjegyzékszám, kapcsolattartó e-mail, tárhely- és adatfeldolgozó szolgáltatók, megőrzési idő, EU-n kívüli továbbítás), majd **jogásszal nézesd át**, és csak ezután töröld a sárga „Draft” sávot.
 - Állítsd be a `contactEmail`-t a `config.js`-ben: ez kerül a láblécbe és az adatvédelmi oldalra (amíg üres, a lábléc „Kapcsolat” linkje a kutatás szekcióra mutat).
 - A hozzájárulási jelölőnégyzet **nincs előre bepipálva**, és csak a kutatásra vonatkozik (marketing-hozzájárulás nincs összekötve vele). A beküldéssel a hozzájárulás időpontja és a `consentVersion` is eltárolódik; ha érdemben módosítod a tájékoztatót vagy a hozzájárulási szöveget, növeld a `consentVersion`-t.
-- Az oldal nem használ sütit; a nyelvválasztás a böngésző helyi tárolójában marad. Analitika alapból **ki van kapcsolva**.
+- Az oldal nem használ sütit; a nyelvválasztás a böngésző helyi tárolójában marad. Analitika: **GoatCounter** (sütik nélkül) mér, a script az `index.html` és `privacy.html` végén van; az események neve `config.js` → `analytics.provider: 'goatcounter'` mellett továbbmennek hozzá (személyes adat nélkül).
 - Töröld a megőrzési idő lejártakor és kérésre az adatokat (a `schema.sql` alján vannak kész lekérdezések).
 
 ## 5. Mérés (analitika)
@@ -100,9 +101,9 @@ Alapból semmi sem töltődik be és semmi sem megy ki. A kódban már vannak es
 | `employer_pilot_interest` (`answer`: yes/no/maybe) | sikeres beküldés után: pilot-érdeklődés |
 | `*_form_error` (`reason`) | beküldési hiba |
 
-Bekapcsolás: `config.js` → `analytics.provider: 'plausible'` és `plausibleDomain: 'nekio.hu'` (cookie nélküli, EU-ban is használható szolgáltatás; fiókot neked kell létrehozni). Kapcsold be a „custom events” és az események `props` mezőit a Plausible-ben, hogy a `placement` és `answer` értékek látszódjanak. Bekapcsolás előtt egyeztess jogásszal és írd be a `privacy.html` „Analitika” pontjába. A valódi sikermutatók: **beszélgetésre kész jelöltek**, **valós pozíciót megbeszélni kész munkáltatók**, **pilotra nyitott munkáltatók** (ezek az adatbázisban is megvannak: `interview_willing = 'yes'`, `pilot_interest in ('yes','maybe')`).
+Bekapcsolás: `config.js` → `analytics.provider: 'plausible'` és `plausibleDomain: 'nekio.app'` (cookie nélküli, EU-ban is használható szolgáltatás; fiókot neked kell létrehozni). Kapcsold be a „custom events” és az események `props` mezőit a Plausible-ben, hogy a `placement` és `answer` értékek látszódjanak. Bekapcsolás előtt egyeztess jogásszal és írd be a `privacy.html` „Analitika” pontjába. A valódi sikermutatók: **beszélgetésre kész jelöltek**, **valós pozíciót megbeszélni kész munkáltatók**, **pilotra nyitott munkáltatók** (ezek az adatbázisban is megvannak: `interview_willing = 'yes'`, `pilot_interest in ('yes','maybe')`).
 
-LinkedIn-kampányhoz használj UTM-es linket, pl. `https://nekio.hu/?utm_source=linkedin&utm_medium=company-page&utm_campaign=research-okt`; ezek a címkék minden beküldéssel együtt tárolódnak (személyes adat nélkül).
+LinkedIn-kampányhoz használj UTM-es linket, pl. `https://nekio.app/?utm_source=linkedin&utm_medium=company-page&utm_campaign=research-okt`; ezek a címkék minden beküldéssel együtt tárolódnak (személyes adat nélkül).
 
 ## 6. Szövegek és megjelenés módosítása
 

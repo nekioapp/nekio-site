@@ -32,6 +32,7 @@
   /* ---------------------------------------------------------------- tracking */
   var A = CFG.analytics || {};
   var trackingOn = A.provider === 'plausible' && !!A.plausibleDomain;
+  var goatOn = A.provider === 'goatcounter';   // the GoatCounter <script> tag sits at the end of each page
 
   if (trackingOn) {
     window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
@@ -52,6 +53,11 @@
       if (A.debug && window.console) console.info('[nekio:track]', name, props || {});
       if (trackingOn && typeof window.plausible === 'function') {
         window.plausible(name, props ? { props: props } : undefined);
+      }
+      if (goatOn && window.goatcounter && typeof window.goatcounter.count === 'function') {
+        // GoatCounter has no event properties: fold the coarse value into the event name, e.g. "candidate_cta_click/hero".
+        var extra = props ? (props.placement || props.answer || props.reason || '') : '';
+        window.goatcounter.count({ path: name + (extra ? '/' + extra : ''), title: name, event: true });
       }
     } catch (e) { /* measurement must never break the page */ }
   };
