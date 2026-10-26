@@ -24,6 +24,8 @@
     if (DICT.en && DICT.en[key] != null) return DICT.en[key];
     return key;
   }
+  // true when the key exists in the loaded dictionary; used so a stale i18n-data.js never overwrites HTML defaults with a raw key
+  function has(key) { var l = currentLang(); return !!((DICT[l] && DICT[l][key] != null) || (DICT.en && DICT.en[key] != null)); }
   window.nekioT = t;
   window.nekioLang = currentLang;
 
@@ -80,12 +82,12 @@
     lang = lang === 'hu' ? 'hu' : 'en';
     root.lang = lang;
 
-    qsa('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
-    qsa('[data-i18n-html]').forEach(function (el) { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
+    qsa('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (has(k)) el.textContent = t(k); });
+    qsa('[data-i18n-html]').forEach(function (el) { var k = el.getAttribute('data-i18n-html'); if (has(k)) el.innerHTML = t(k); });
     qsa('[data-i18n-attr]').forEach(function (el) {
       el.getAttribute('data-i18n-attr').split(';').forEach(function (pair) {
         var i = pair.indexOf(':');
-        if (i > 0) el.setAttribute(pair.slice(0, i).trim(), t(pair.slice(i + 1).trim()));
+        if (i > 0 && has(pair.slice(i + 1).trim())) el.setAttribute(pair.slice(0, i).trim(), t(pair.slice(i + 1).trim()));
       });
     });
 
