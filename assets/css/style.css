@@ -460,3 +460,6 @@ html[lang="en"] [data-lang-block="en"], html[lang="hu"] [data-lang-block="hu"] {
   .hv-link { stroke-dashoffset: 0; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* Example text inside empty form fields */
+.field input::placeholder, .field textarea::placeholder { color: var(--ink-3); opacity: 1; font-style: italic; }
