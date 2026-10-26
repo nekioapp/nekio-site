@@ -35,7 +35,7 @@
   --white: #fff;
   --ink: #0F172A;
   --ink-2: #475569;         /* body copy on light, AA */
-  --ink-3: #64748B;
+  --ink-3: #5B6B82;
   --line: #E2E8F0;
   --line-strong: #CBD5E1;
   --on-navy: #E2E8F0;
@@ -308,6 +308,7 @@ p { text-wrap: pretty; }
 .option__text { font-size: 1.2rem; line-height: 1.5; color: #fff; font-weight: 500; }
 .option .btn { margin-top: auto; }
 .option__meta { font-size: .88rem; color: var(--on-navy-2); }
+@media (min-width: 821px) { .option__meta { min-height: 2.8em; line-height: 1.4; } }   /* both cards reserve two lines, so the buttons line up */
 @media (max-width: 820px) { .options { grid-template-columns: 1fr; } .option .btn { width: 100%; } }
 
 /* ---------- About ---------- */
