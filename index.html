@@ -379,12 +379,6 @@
             <input id="e-name" name="name" type="text" autocomplete="given-name" required maxlength="60">
             <p class="field__error" id="e-name-err" hidden></p>
           </div>
-          <div class="field">
-            <label for="e-email"><span data-i18n="fe.email">Work email</span></label>
-            <input id="e-email" name="email" type="email" inputmode="email" autocomplete="work email" required maxlength="254" aria-describedby="e-email-hint">
-            <p class="field__hint" id="e-email-hint" data-i18n="fe.email.hint">Please use your company address.</p>
-            <p class="field__error" id="e-email-err" hidden></p>
-          </div>
           <div class="field field--split">
             <div>
               <label for="e-company"><span data-i18n="fe.company">Company</span></label>
@@ -421,6 +415,13 @@
             </div>
             <p class="field__error" id="e-pilot-err" hidden></p>
           </fieldset>
+
+          <div class="field" id="e-email-wrap" hidden>
+            <label for="e-email"><span data-i18n="fe.email">Work email</span></label>
+            <input id="e-email" name="email" type="email" inputmode="email" autocomplete="work email" maxlength="254" aria-describedby="e-email-hint">
+            <p class="field__hint" id="e-email-hint" data-i18n="fe.email.hint">Please use your company address.</p>
+            <p class="field__error" id="e-email-err" hidden></p>
+          </div>
 
           <div class="field consent">
             <label class="check"><input type="checkbox" name="consent" value="yes" required><span data-i18n-html="fe.consent">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and agree that NEKIO may use my answers for the research and for aggregated analysis, and to contact me about this research and a possible later pilot.</span></label>

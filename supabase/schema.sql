@@ -41,7 +41,7 @@ create table if not exists public.research_employers (
   created_at           timestamptz not null default now(),
   locale               text        check (locale in ('en', 'hu')),
   name                 text        not null check (char_length(name) between 1 and 120),
-  email                text        not null check (char_length(email) between 5 and 254 and email ~* '^[^@\s]+@[^@\s]+\.[^@\s]{2,}$'),
+  email                text        check (char_length(email) between 5 and 254 and email ~* '^[^@\s]+@[^@\s]+\.[^@\s]{2,}$'),
   company              text        not null check (char_length(company) between 1 and 160),
   job_title            text        not null check (char_length(job_title) between 1 and 160),
   roles                text        not null check (char_length(roles) between 1 and 1000),
@@ -93,3 +93,7 @@ create policy "website can insert employers"
 --   alter table public.research_candidates alter column email drop not null;
 --   alter table public.research_candidates add constraint research_candidates_email_if_willing
 --     check (interview_willing <> 'yes' or email is not null);
+-- Employer form (2026-10-28): the e-mail is required only when pilot_interest is 'yes' or 'maybe'.
+--   alter table public.research_employers alter column email drop not null;
+--   alter table public.research_employers add constraint research_employers_email_if_interested
+--     check (pilot_interest = 'no' or email is not null);

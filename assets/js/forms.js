@@ -32,14 +32,16 @@
 
   /* Candidate form: the e-mail field only exists (and is only required) when the person says YES to the conversation. */
   function syncEmail(f) {
-    if (!f.form || f.choiceField !== 'interview_willing') return;
-    var wrap = qs('#c-email-wrap', f.form);
-    var input = qs('#c-email', f.form);
+    if (!f.form) return;
+    var cand = f.choiceField === 'interview_willing';
+    var wrap = qs(cand ? '#c-email-wrap' : '#e-email-wrap', f.form);
+    var input = qs(cand ? '#c-email' : '#e-email', f.form);
     if (!wrap || !input) return;
-    var yes = !!f.form.querySelector('input[name="interview_willing"][value="yes"]:checked');
-    wrap.hidden = !yes;
-    input.required = yes;
-    if (!yes) { input.value = ''; clearInvalid(input); }
+    var sel = f.form.querySelector('input[name="' + f.choiceField + '"]:checked');
+    var need = !!sel && (cand ? sel.value === 'yes' : sel.value !== 'no');
+    wrap.hidden = !need;
+    input.required = need;
+    if (!need) { input.value = ''; clearInvalid(input); }
   }
 
   var lastTrigger = null;
@@ -191,7 +193,8 @@
       v = v == null ? '' : String(v).trim();
       row[name] = v === '' ? null : v;
     });
-    if (type === 'candidate' && row.interview_willing !== 'yes') row.email = null;   // never keep an address the person was not asked for
+    if (type === 'candidate' && row.interview_willing !== 'yes') row.email = null;
+    if (type === 'employer' && row.pilot_interest === 'no') row.email = null;   // never keep an address the person was not asked for
     row.submission_id = f.submissionId;
     row.locale = window.nekioLang ? window.nekioLang() : 'en';
     row.consent_version = CFG.consentVersion || null;
@@ -283,7 +286,7 @@
       var key = problemWith(f.form, el);
       if (key) setInvalid(el, t(key)); else clearInvalid(el);
     }
-    f.form.addEventListener('change', function (e) { if (e.target && e.target.name === 'interview_willing') syncEmail(f); });
+    f.form.addEventListener('change', function (e) { if (e.target && e.target.name === f.choiceField) syncEmail(f); });
     f.form.addEventListener('input', revalidate);
     f.form.addEventListener('change', revalidate);
 
