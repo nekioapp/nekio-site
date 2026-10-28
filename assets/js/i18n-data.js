@@ -122,7 +122,7 @@ window.NEKIO_I18N = {
     'fc.consent': 'I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and agree that NEKIO may use my answers for the research and for aggregated analysis, and to contact me about this research and a possible later pilot.',
     'fc.submit': 'Share my experience',
     'fc.success.title': 'Thank you!',
-    'fc.success': 'Thank you for sharing your experience. If you said you’d be happy to talk, we’ll be in touch soon.',
+    'fc.success': 'Thank you for helping our research – we hope we can help you soon too! If you said you’d be happy to talk, we’ll be in touch.',
 
     'fe.title': 'Share our hiring challenges',
     'fe.lede': 'Takes about 3 minutes. We’ll follow up to talk about your real hiring needs.',
@@ -137,7 +137,7 @@ window.NEKIO_I18N = {
     'fe.consent': 'I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and agree that NEKIO may use my answers for the research and for aggregated analysis, and to contact me about this research and a possible later pilot.',
     'fe.submit': 'Share our hiring challenges',
     'fe.success.title': 'Thank you!',
-    'fe.success': 'Thank you for your interest. We’ll review your answers and get back to you soon with next steps.',
+    'fe.success': 'Thank you for helping our research – we hope we can help you soon too! If you left your e-mail address, we’ll be in touch.',
 
     'pv.back': 'Back to the homepage',
     'pv.title': 'NEKIO — Privacy notice',
@@ -262,7 +262,7 @@ window.NEKIO_I18N = {
     'fc.consent': 'Elolvastam az <a href="privacy.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>, és hozzájárulok, hogy a NEKIO a válaszaimat a kutatás és az összesített elemzés céljára, valamint a kutatással és egy esetleges későbbi pilottal kapcsolatos kapcsolatfelvételre felhasználja.',
     'fc.submit': 'Megosztom a tapasztalataimat',
     'fc.success.title': 'Köszönjük!',
-    'fc.success': 'Köszönjük, hogy megosztottad velünk a tapasztalataidat. Ha megadtad, hogy szívesen beszélgetnél velünk, hamarosan felvesszük veled a kapcsolatot.',
+    'fc.success': 'Köszönjük, hogy segítetted a kutatást – reméljük, hamarosan mi is tudunk segíteni neked! Ha igent mondtál a beszélgetésre, hamarosan felvesszük veled a kapcsolatot.',
 
     'fe.title': 'Megosztom a toborzási kihívásainkat',
     'fe.lede': 'Kb. 3 perc. Utána felvesszük veled a kapcsolatot, hogy a valós toborzási igényeitekről beszéljünk.',
@@ -277,7 +277,7 @@ window.NEKIO_I18N = {
     'fe.consent': 'Elolvastam az <a href="privacy.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>, és hozzájárulok, hogy a NEKIO a válaszaimat a kutatás és az összesített elemzés céljára, valamint a kutatással és egy esetleges későbbi pilottal kapcsolatos kapcsolatfelvételre felhasználja.',
     'fe.submit': 'Megosztom a toborzási kihívásainkat',
     'fe.success.title': 'Köszönjük!',
-    'fe.success': 'Köszönjük az érdeklődést. Áttekintjük a válaszaidat, és hamarosan jelentkezünk a következő lépésekkel kapcsolatban.',
+    'fe.success': 'Köszönjük, hogy segítetted a kutatást – reméljük, hamarosan mi is tudunk segíteni neked! Ha megadtad az e-mail-címedet, hamarosan jelentkezünk.',
 
     'pv.back': 'Vissza a főoldalra',
     'pv.title': 'NEKIO — Adatkezelési tájékoztató',
