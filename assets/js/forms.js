@@ -30,6 +30,18 @@
   var MIN_FILL_MS = 2500;                    // faster than this is almost certainly a bot
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+  /* Candidate form: the e-mail field only exists (and is only required) when the person says YES to the conversation. */
+  function syncEmail(f) {
+    if (!f.form || f.choiceField !== 'interview_willing') return;
+    var wrap = qs('#c-email-wrap', f.form);
+    var input = qs('#c-email', f.form);
+    if (!wrap || !input) return;
+    var yes = !!f.form.querySelector('input[name="interview_willing"][value="yes"]:checked');
+    wrap.hidden = !yes;
+    input.required = yes;
+    if (!yes) { input.value = ''; clearInvalid(input); }
+  }
+
   var lastTrigger = null;
   var mouseDownOnBackdrop = false;
 
@@ -179,6 +191,7 @@
       v = v == null ? '' : String(v).trim();
       row[name] = v === '' ? null : v;
     });
+    if (type === 'candidate' && row.interview_willing !== 'yes') row.email = null;   // never keep an address the person was not asked for
     row.submission_id = f.submissionId;
     row.locale = window.nekioLang ? window.nekioLang() : 'en';
     row.consent_version = CFG.consentVersion || null;
@@ -243,6 +256,7 @@
       if (answer) track(f.choiceEvent, { answer: answer });
     }
     f.form.reset();
+    syncEmail(f);
     qsa('[aria-invalid]', f.form).forEach(clearInvalid);
     f.submissionId = null;
     setStatus(f, '', null);
@@ -269,6 +283,7 @@
       var key = problemWith(f.form, el);
       if (key) setInvalid(el, t(key)); else clearInvalid(el);
     }
+    f.form.addEventListener('change', function (e) { if (e.target && e.target.name === 'interview_willing') syncEmail(f); });
     f.form.addEventListener('input', revalidate);
     f.form.addEventListener('change', revalidate);
 

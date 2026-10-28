@@ -295,19 +295,14 @@
 
       <div class="sheet__body" data-view="form">
         <h2 id="fc-title" data-i18n="fc.title">Share your experience</h2>
-        <p class="sheet__lede" data-i18n="fc.lede">Takes about two minutes. No CV upload, no account.</p>
+        <p class="sheet__lede" data-i18n="fc.lede">Takes about 3 minutes. No CV upload, no account.</p>
         <p class="setup-warning" data-setup-warning hidden data-i18n="dlg.setup"></p>
 
         <form id="form-candidate" data-form="candidate" novalidate autocomplete="on">
           <div class="field">
-            <label for="c-name"><span data-i18n="f.name">Name</span></label>
-            <input id="c-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <label for="c-name"><span data-i18n="f.firstname">First name</span></label>
+            <input id="c-name" name="name" type="text" autocomplete="given-name" required maxlength="60">
             <p class="field__error" id="c-name-err" hidden></p>
-          </div>
-          <div class="field">
-            <label for="c-email"><span data-i18n="fc.email">E-mail address</span></label>
-            <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254">
-            <p class="field__error" id="c-email-err" hidden></p>
           </div>
           <div class="field">
             <label for="c-role"><span data-i18n="fc.role">Current or most recent role</span></label>
@@ -340,6 +335,13 @@
             <p class="field__error" id="c-willing-err" hidden></p>
           </fieldset>
 
+          <div class="field" id="c-email-wrap" hidden>
+            <label for="c-email"><span data-i18n="fc.email">E-mail address</span></label>
+            <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" aria-describedby="c-email-hint">
+            <p class="field__hint" id="c-email-hint" data-i18n="fc.email.hint">We only use it to arrange the conversation.</p>
+            <p class="field__error" id="c-email-err" hidden></p>
+          </div>
+
           <div class="field consent">
             <label class="check"><input type="checkbox" name="consent" value="yes" required><span data-i18n-html="fc.consent">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and agree that NEKIO may use my answers for the research and for aggregated analysis, and to contact me about this research and a possible later pilot.</span></label>
             <p class="field__error" id="c-consent-err" hidden></p>
@@ -368,13 +370,13 @@
 
       <div class="sheet__body" data-view="form">
         <h2 id="fe-title" data-i18n="fe.title">Share our hiring challenges</h2>
-        <p class="sheet__lede" data-i18n="fe.lede">Takes about two minutes. We’ll follow up to talk about your real hiring needs.</p>
+        <p class="sheet__lede" data-i18n="fe.lede">Takes about 3 minutes. We’ll follow up to talk about your real hiring needs.</p>
         <p class="setup-warning" data-setup-warning hidden data-i18n="dlg.setup"></p>
 
         <form id="form-employer" data-form="employer" novalidate autocomplete="on">
           <div class="field">
-            <label for="e-name"><span data-i18n="f.name">Name</span></label>
-            <input id="e-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <label for="e-name"><span data-i18n="f.firstname">First name</span></label>
+            <input id="e-name" name="name" type="text" autocomplete="given-name" required maxlength="60">
             <p class="field__error" id="e-name-err" hidden></p>
           </div>
           <div class="field">

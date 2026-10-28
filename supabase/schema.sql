@@ -20,7 +20,7 @@ create table if not exists public.research_candidates (
   created_at           timestamptz not null default now(),
   locale               text        check (locale in ('en', 'hu')),
   name                 text        not null check (char_length(name) between 1 and 120),
-  email                text        not null check (char_length(email) between 5 and 254 and email ~* '^[^@\s]+@[^@\s]+\.[^@\s]{2,}$'),
+  email                text        check (char_length(email) between 5 and 254 and email ~* '^[^@\s]+@[^@\s]+\.[^@\s]{2,}$'),   -- only collected when interview_willing = 'yes'
   recent_role          text        not null check (char_length(recent_role) between 1 and 160),
   seeking              text        not null check (char_length(seeking) between 1 and 1000),
   location_preference  text        check (location_preference is null or char_length(location_preference) <= 200),
@@ -30,7 +30,8 @@ create table if not exists public.research_candidates (
   consent_at           timestamptz not null,
   utm_source           text        check (utm_source is null or char_length(utm_source) <= 100),
   utm_medium           text        check (utm_medium is null or char_length(utm_medium) <= 100),
-  utm_campaign         text        check (utm_campaign is null or char_length(utm_campaign) <= 100)
+  utm_campaign         text        check (utm_campaign is null or char_length(utm_campaign) <= 100),
+  constraint research_candidates_email_if_willing check (interview_willing <> 'yes' or email is not null)
 );
 
 -- ---------------------------------------------------------------- employers
@@ -85,3 +86,10 @@ create policy "website can insert employers"
 -- Erase one person on request:
 --   delete from public.research_candidates where email = 'person@example.com';
 --   delete from public.research_employers  where email = 'person@example.com';
+
+-- ---------------------------------------------------------------- migration for an EXISTING project (2026-10-28)
+-- The candidate form now asks for the e-mail address only when the person answers YES to the research conversation.
+-- Run this once on a project that was created from the earlier version of this file:
+--   alter table public.research_candidates alter column email drop not null;
+--   alter table public.research_candidates add constraint research_candidates_email_if_willing
+--     check (interview_willing <> 'yes' or email is not null);
