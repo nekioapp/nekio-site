@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://nekio.app/sitemap.xml
+Sitemap: https://kapcsolodascoaching.hu/sitemap.xml
